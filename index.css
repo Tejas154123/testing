@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Pixelify Sans', 'Silkscreen', 'Press Start 2P', monospace, sans-serif;
+    background-color: #FFF699;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+.font-pixel {
+  font-family: 'Pixelify Sans', cursive, monospace, sans-serif;
+}
+
+.font-silkscreen {
+  font-family: 'Silkscreen', monospace, sans-serif;
+}
+
+.font-arcade {
+  font-family: 'Press Start 2P', monospace, sans-serif;
+}
+
+/* Authentic Figma retro grid background */
+.bg-retro-grid {
+  background-color: #FFF79A;
+  background-image: 
+    linear-gradient(to right, #000000 2.5px, transparent 2.5px),
+    linear-gradient(to bottom, #000000 2.5px, transparent 2.5px);
+  background-size: 52px 52px;
+}
+
+/* Custom neo-brutalist shadows */
+.brutal-shadow-sm {
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.brutal-shadow {
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.brutal-shadow-pill {
+  box-shadow: 5px 5px 0px #000000;
+}
+
