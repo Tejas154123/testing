@@ -1,1 +1,323 @@
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  font-family: 'Pixelify Sans', cursive, monospace, sans-serif;
+  color: #000000;
+  background-color: #FFF79A;
+  /* Figma Retro 2px Grid */
+  background-image: 
+    linear-gradient(to right, #000000 2.5px, transparent 2.5px),
+    linear-gradient(to bottom, #000000 2.5px, transparent 2.5px);
+  background-size: 52px 52px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 16px 48px;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+}
+
+/* ==========================================================================
+   NEO-BRUTALIST SHADOWS & BORDERS
+   ========================================================================== */
+.brutal-shadow {
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.brutal-shadow-pill {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+/* ==========================================================================
+   MAIN TWO-COLUMN GRID LAYOUT
+   ========================================================================== */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ==========================================================================
+   LEFT COLUMN (PROFILE & PERSONAL INFO)
+   ========================================================================== */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* 1. Header Badge: SMASHER WORLD */
+.card-smasher-world {
+  background-color: #80F59C;
+  border: 3.5px solid #000000;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.card-smasher-world h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* 2. Avatar Card */
+.card-avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 400px;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 3.5px solid #000000;
+  background-color: #1c1c1e;
+  position: relative;
+}
+
+.card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 3. Pill Tag: SMASHER_GUY */
+.badge-smasher-guy {
+  background-color: #FF5C72;
+  border: 3.5px solid #000000;
+  border-radius: 9999px;
+  padding: 10px 24px;
+  text-align: center;
+  width: fit-content;
+  min-width: 250px;
+  align-self: flex-start;
+}
+
+.badge-smasher-guy span {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* 4. Orange Bio Info Card */
+.card-info {
+  background-color: #FFA652;
+  border: 3.5px solid #000000;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.info-label {
+  white-space: nowrap;
+}
+
+.arrow-line {
+  flex: 1;
+  overflow: hidden;
+  margin: 0 12px;
+  font-family: sans-serif;
+  letter-spacing: -2px;
+  font-weight: 700;
+  user-select: none;
+}
+
+.info-value {
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN (PROJECTS & FLOATING POLAROIDS)
+   ========================================================================== */
+.right-column {
+  position: relative;
+  width: 100%;
+}
+
+/* Floating Tilted Polaroid Photos */
+.floating-photo {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 2.5px solid #000000;
+  background-color: #ffffff;
+  padding: 4px;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+.floating-photo:hover {
+  transform: scale(1.15) rotate(0deg) !important;
+  z-index: 30;
+}
+
+.floating-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pos-top-left {
+  top: -24px;
+  left: -28px;
+  transform: rotate(-20deg);
+}
+
+.pos-mid-left {
+  top: 36%;
+  left: -32px;
+  transform: rotate(-15deg);
+}
+
+.pos-top-right {
+  top: -20px;
+  right: -24px;
+  transform: rotate(22deg);
+}
+
+.pos-mid-right {
+  top: 42%;
+  right: -28px;
+  transform: rotate(-12deg);
+}
+
+/* Blue Projects Box */
+.card-projects {
+  background-color: #82B1FF;
+  border: 3.5px solid #000000;
+  padding: 32px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.projects-title {
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 1.5px;
+  line-height: 1.25;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.project-text {
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+/* Featured Robot Car Container */
+.robot-image-box {
+  width: 100%;
+  max-width: 520px;
+  margin: 4px auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2.5px solid #000000;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.robot-image-box img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Red Bidirectional Arrow */
+.red-arrow-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #E11D48;
+  font-weight: 700;
+  font-size: 22px;
+  user-select: none;
+  margin: 4px 0;
+}
+
+.arrow-line-fill {
+  flex: 1;
+  height: 2px;
+  background-color: #E11D48;
+  margin: 0 3px;
+}
+
+/* AI Projects Section */
+.ai-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer-note {
+  text-align: center;
+  margin-top: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .left-column {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .badge-smasher-guy {
+    align-self: center;
+  }
+
+  .floating-photo {
+    display: none; /* Hide floating photos on small screens so they don't block text */
+  }
+}
