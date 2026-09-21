@@ -1,6 +1,0 @@
-{
-  "name": "Smasher World",
-  "description": "Personal portfolio and project showcase for Smasher Guy featuring robotics and AI projects with retro pixel art styling.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
