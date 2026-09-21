@@ -1,135 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smasher World</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <div class="canvas-container">
-
-    <!-- MAIN TWO-COLUMN CONTAINER -->
-    <main class="portfolio-grid">
-
-      <!-- ================= LEFT COLUMN ================= -->
-      <section class="left-column">
-        
-        <!-- Header Badge: SMASHER WORLD -->
-        <div class="card-header-badge">
-          <h1>SMASHER WORLD</h1>
-        </div>
-
-        <!-- Profile Photo -->
-        <div class="card-avatar">
-          <!-- Replace avatar.jpg with your original Figma export -->
-          <img src="avatar.jpg" alt="Smasher Guy Avatar" id="avatar-img">
-        </div>
-
-        <!-- Pill Tag: SMASHER_GUY -->
-        <div class="card-pill-badge">
-          <span>SMASHER_GUY</span>
-        </div>
-
-        <!-- Personal Info Card -->
-        <div class="card-info">
-          
-          <div class="info-row">
-            <span class="info-label">AGE</span>
-            <div class="arrow-line"><span>───────────&gt;</span></div>
-            <span class="info-value">15</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">REAL NAME</span>
-            <div class="arrow-line"><span>───────&gt;</span></div>
-            <span class="info-value">NA</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">OCCUPATION</span>
-            <div class="arrow-line"><span>────&gt;</span></div>
-            <span class="info-value">STUDENT</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">HOBBIES</span>
-            <div class="arrow-line"><span>────────&gt;</span></div>
-            <span class="info-value">CODING,</span>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= RIGHT COLUMN ================= -->
-      <section class="right-column">
-
-        <!-- 4 Tilted Floating Polaroid Photos -->
-        <div class="floating-photo float-top-left">
-          <img src="robot-part-1.jpg" alt="Arduino Top Angle">
-        </div>
-
-        <div class="floating-photo float-mid-left">
-          <img src="robot-part-2.jpg" alt="RC Chassis">
-        </div>
-
-        <div class="floating-photo float-top-right">
-          <img src="robot-part-3.jpg" alt="Wiring Top View">
-        </div>
-
-        <div class="floating-photo float-mid-right">
-          <img src="robot-part-4.jpg" alt="Ultrasonic Sensor Eyes">
-        </div>
-
-        <!-- Projects Box -->
-        <div class="card-projects">
-
-          <h2 class="projects-title">PROJECTS I HAVE<br>WORKED ON TILL NOW</h2>
-
-          <div class="project-description">
-            <p>
-              ROBOTS- Obstacle Avoidance Car with ultrasonic sensors and having both manual and automatic modes all controlled through esp 32 and arduino UNO ,can be controlled via wifi.
-            </p>
-          </div>
-
-          <!-- Featured Robot Car Image -->
-          <div class="featured-robot-container">
-            <img src="main-robot.jpg" alt="Obstacle Avoidance Car">
-          </div>
-
-          <!-- Red Bidirectional Arrow Divider -->
-          <div class="red-arrow-divider">
-            <span class="arrow-tip">&lt;</span>
-            <span class="arrow-bar"></span>
-            <span class="arrow-tip">&gt;</span>
-          </div>
-
-          <!-- AI Projects Section -->
-          <div class="ai-projects">
-            <p>
-              <strong>AI= Praj</strong> ,an ai which runs in the background of your system and does whatever you say or type in its terminal and stays limited to your system only keeping the data safe.
-            </p>
-            <p>
-              <strong>AI= Aether</strong> , an ai which can evolve itself and which is connected with autonomous learning workflows, local model execution, and hardware controls.
-            </p>
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
-
-    <footer class="footer">
-      SMASHER WORLD • PORTFOLIO • ROBOTICS &amp; AI
-    </footer>
-
-  </div>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smasher World</title>
+    <meta name="description" content="Personal portfolio and project showcase for Smasher Guy featuring robotics and AI projects with retro pixel art styling." />
+    <meta property="og:title" content="Smasher World" />
+    <meta property="og:description" content="Personal portfolio and project showcase for Smasher Guy featuring robotics and AI projects with retro pixel art styling." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Silkscreen:wght@400;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
