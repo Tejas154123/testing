@@ -1,9 +1,11 @@
+// Data for Page 1 & Page 2 with hardcoded image links
 const DATA = {
   page1: [
     {
       id: "p1-1",
       title: "Obstacle Avoidance+RC Robot",
       colorClass: "color-teal",
+      imageSrc: "photo1", // <-- Paste your photo 1 link here
       specs: [
         "A 2 in 1 robot with two modes",
         "• Obstacle Avoidance mode: In which it senses the obstacles using its ultrasonic sensor and navigates by itself",
@@ -18,8 +20,7 @@ const DATA = {
         "• 2x 3.7 lithium ion batteries",
         "• 1x switch"
       ],
-      slotText: "",
-      defaultImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=700&q=80",
+      slotText: "IMAGE SLOT",
       layout: "image-right"
     },
     {
@@ -27,6 +28,7 @@ const DATA = {
       title: "A 3 in 1 Robot CAR",
       subtitle: "Features",
       colorClass: "color-teal",
+      imageSrc: "photo2", // <-- Paste your photo 2 link here
       specs: [
         "Mode 1 (Voice Control)= It connects to your phone and takes voice commands through an app like (forward, backward, left, right, etc.) and moves accordingly .",
         "Mode 2 (Obstacle Avoidance)= In this mode it works as same as other obstacle avoidance robots .",
@@ -40,6 +42,7 @@ const DATA = {
       title: "FIRE FIGHTER ROBOT",
       colorClass: "color-yellow",
       hasUnderline: true,
+      imageSrc: "photo3", // <-- Paste your photo 3 link here
       enableTypewriter: true,
       specs: [
         "• This robot is a very incredible idea for emergency situations where no human interaction is needed and every thing is being controlled by a computer",
@@ -57,6 +60,7 @@ const DATA = {
       title: "Blind Stick",
       subtitle: "This is a very useful project which can guide a blind person to search his way .",
       colorClass: "color-orange",
+      imageSrc: "photo4", // <-- Paste your photo 4 link here
       specs: [
         "Components :",
         "• Arduino UNO",
@@ -76,6 +80,7 @@ const DATA = {
       title: "E-nose",
       subtitle: "This is a DIY project which can detect different kinds of smells and tell what is the source of it.",
       colorClass: "color-red",
+      imageSrc: "photo5", // <-- Paste your photo 5 link here
       enableTypewriter: true,
       specs: [
         "Components :",
@@ -98,6 +103,7 @@ const DATA = {
       id: "p2-1",
       title: "ULTRA--SONIC -- SENSOR",
       colorClass: "color-white",
+      imageSrc: "photo6", // <-- Paste your photo 6 link here
       specs: [
         "This sensor uses ultrasonic waves to measure the distance between itself and the obstacle .",
         "It has 4 pins in total",
@@ -112,6 +118,7 @@ const DATA = {
       id: "p2-2",
       title: "Esp- 32",
       colorClass: "color-white",
+      imageSrc: "photo7", // <-- Paste your photo 7 link here
       specs: [
         "It is a micro-controller which has both wifi and bluetooth embeddedin it.",
         "It works on both 5 volt and 3.3 volt strictly.",
@@ -125,6 +132,7 @@ const DATA = {
       id: "p2-3",
       title: "Arduino--UNO",
       colorClass: "color-white",
+      imageSrc: "photo8", // <-- Paste your photo 8 link here
       specs: [
         "Arduino uno is a very popular microcontroller used in various DIY projects .It uses ATmega 328p chip.",
         "It has 14 digital pins and 6 analog pins which are programmable using Arduino IDE(Integrated Development Enviornment).",
@@ -138,6 +146,7 @@ const DATA = {
       isBonus: true,
       bonusTitle: "BONUS!",
       title: "Heat Sensor",
+      imageSrc: "photo9", // <-- Paste your photo 9 link here
       specs: [
         "this sensor detects heat in its enviornment and convert them into electrical impulse to send the readings to the controller"
       ],
@@ -148,7 +157,6 @@ const DATA = {
 };
 
 let currentPage = 1;
-const userUploadedImages = JSON.parse(localStorage.getItem('robo_lab_images') || '{}');
 
 function renderPage() {
   const container = document.getElementById("projects-container");
@@ -179,13 +187,14 @@ function renderPage() {
   const currentList = currentPage === 1 ? DATA.page1 : DATA.page2;
 
   currentList.forEach((item) => {
+    // BONUS Section (Page 2)
     if (item.isBonus) {
       const bonusEl = document.createElement("section");
       bonusEl.className = "bonus-container";
       bonusEl.innerHTML = `
         <h2 class="bonus-heading">${item.bonusTitle || "BONUS!"}</h2>
         <div class="bonus-slot-wrap">
-          ${createSlotHTML(item.id, item.slotText, item.title)}
+          ${renderImageSlot(item.imageSrc, item.slotText, item.title)}
         </div>
         <h3 class="bonus-subtitle">${item.title}</h3>
         <p class="bonus-desc">${item.specs.join("<br />")}</p>
@@ -194,6 +203,7 @@ function renderPage() {
       return;
     }
 
+    // Standard Project Card
     const cardEl = document.createElement("section");
     cardEl.className = `project-card layout-${item.layout}`;
 
@@ -213,7 +223,7 @@ function renderPage() {
       </div>
     `;
 
-    const slotContent = createSlotHTML(item.id, item.slotText, item.title, item.defaultImage);
+    const slotContent = renderImageSlot(item.imageSrc, item.slotText, item.title);
 
     if (item.layout === "image-left") {
       cardEl.innerHTML = `${slotContent}${textContent}`;
@@ -224,61 +234,36 @@ function renderPage() {
     container.appendChild(cardEl);
   });
 
-  attachUploadListeners();
   setupScrollRevealAndTypewriter();
 }
 
-function createSlotHTML(id, slotText, altText, defaultImage) {
-  const currentSrc = userUploadedImages[id] || defaultImage;
+// Display-only Image Box (No file inputs, No upload buttons)
+function renderImageSlot(imageSrc, slotText, altText) {
+  const isRealImage = imageSrc && (
+    imageSrc.startsWith("http") || 
+    imageSrc.startsWith("data:") || 
+    imageSrc.startsWith("/") || 
+    imageSrc.includes(".") || 
+    imageSrc.includes("/")
+  );
+
   return `
-    <div class="card-image-slot" data-slot-id="${id}">
-      <input type="file" id="input-${id}" accept="image/*" style="display:none;" />
+    <div class="card-image-slot" style="background-color: ${isRealImage ? '#0a0a0a' : '#cfd3db'}">
       ${
-        currentSrc
-          ? `<img src="${currentSrc}" alt="${altText}" class="slot-image-preview" />`
-          : `
-            <div class="slot-inner-text">${slotText}</div>
-            <div class="slot-upload-hint">[ Click to upload photo ]</div>
-          `
+        isRealImage
+          ? `<img src="${imageSrc}" alt="${altText}" class="slot-image-preview" loading="lazy" />`
+          : `<div class="slot-inner-text">${slotText || imageSrc || "IMAGE SLOT"}</div>`
       }
     </div>
   `;
 }
 
-function attachUploadListeners() {
-  document.querySelectorAll(".card-image-slot").forEach((slot) => {
-    const slotId = slot.getAttribute("data-slot-id");
-    const fileInput = document.getElementById(`input-${slotId}`);
-
-    slot.onclick = () => fileInput && fileInput.click();
-
-    if (fileInput) {
-      fileInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (evt) => {
-            userUploadedImages[slotId] = evt.target.result;
-            try {
-              localStorage.setItem('robo_lab_images', JSON.stringify(userUploadedImages));
-            } catch(e) {}
-            renderPage();
-          };
-          reader.readAsDataURL(file);
-        }
-      };
-    }
-  });
-}
-
-// Scroll-Reveal and Typewriter Observer
 function setupScrollRevealAndTypewriter() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("in-view");
 
-        // Check if there is a typewriter target inside
         const typewriterEl = entry.target.querySelector(".typewriter-target");
         if (typewriterEl && !typewriterEl.dataset.typed) {
           typewriterEl.dataset.typed = "true";
@@ -292,7 +277,6 @@ function setupScrollRevealAndTypewriter() {
             typewriterEl.innerHTML = `${currentSub}<span class="typewriter-cursor"></span>`;
             if (i >= fullText.length) {
               clearInterval(timer);
-              // Leave cursor blinking
             }
           }, 10);
         }
