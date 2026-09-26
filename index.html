@@ -4,61 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXUS // Tool Deck</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --c: #00f0ff;
-            --m: #ff2bd6;
-            --bg: #05070d;
-            --g: rgba(255, 255, 255, .05);
+            --primary-color: #00f0ff;
+            --secondary-color: #ff2bd6;
+            --background-color: #121212;
+            --card-background: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --border-radius: 15px;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
+
         body {
-            background: var(--bg);
-            color: #cfe9ff;
-            font-family: 'JetBrains Mono', monospace;
-            min-height: 100vh;
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
         }
+
         header {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: var(--c);
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
         }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
         .tool {
-            background: var(--g);
-            border-radius: 10px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
             padding: 20px;
-            margin: 20px;
+            margin: 15px;
             width: 250px;
             text-align: center;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.5s ease-in-out;
         }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         .tool:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--c);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 240, 255, 0.7);
         }
+
         button {
-            background: var(--m);
+            background: var(--secondary-color);
             color: white;
             border: none;
-            border-radius: 5px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 10px 15px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
         }
+
         button:hover {
             background: darkviolet;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .close {
+            cursor: pointer;
+            color: var(--primary-color);
+            font-weight: bold;
         }
     </style>
 </head>
@@ -67,6 +134,7 @@
         <h1>NEXUS: High-Tech Tool Deck</h1>
         <p>Explore a suite of powerful tools designed for engineers and researchers.</p>
     </header>
+
     <div class="tool">
         <h2>Mission Clock</h2>
         <button onclick="showMissionClock()">Open</button>
@@ -96,46 +164,75 @@
         <button onclick="showTelemetry()">Show</button>
     </div>
 
+    <footer>
+        &copy; 2023 NEXUS Tools. All Rights Reserved.
+    </footer>
+
+    <!-- Modal for displaying results -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+
     <script>
+        function showModal(text) {
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
         function showMissionClock() {
-            alert("Mission Clock is activated!");
+            showModal("Mission Clock is activated!");
         }
+
         function generatePassword() {
-            alert("Password generated: " + Math.random().toString(36).slice(-8));
+            const password = Math.random().toString(36).slice(-8);
+            showModal("Password generated: " + password);
         }
+
         function formatJSON() {
-            let json = prompt("Enter JSON to format:");
+            const json = prompt("Enter JSON to format:");
             try {
-                let formatted = JSON.stringify(JSON.parse(json), null, 2);
-                alert(formatted);
+                const formatted = JSON.stringify(JSON.parse(json), null, 2);
+                showModal(formatted);
             } catch (e) {
-                alert("Invalid JSON!");
+                showModal("Invalid JSON!");
             }
         }
+
         function base64Codec() {
-            let text = prompt("Enter text to encode/decode:");
-            let encoded = btoa(text);
-            let decoded = atob(encoded);
-            alert(`Encoded: ${encoded}\nDecoded: ${decoded}`);
+            const text = prompt("Enter text to encode/decode:");
+            const encoded = btoa(text);
+            const decoded = atob(encoded);
+            showModal(`Encoded: ${encoded}\nDecoded: ${decoded}`);
         }
-        function hashSHA256() {
-            let text = prompt("Enter text to hash:");
-            alert("Hashed: " + sha256(text));
+
+        async function hashSHA256() {
+            const text = prompt("Enter text to hash:");
+            const hashed = await sha256(text);
+            showModal("Hashed: " + hashed);
         }
-        // Simple SHA-256 hashing function
+
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             return hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
         }
+
         function calculateLightDelay() {
-            let distance = prompt("Enter distance in kilometers:");
-            let time = (distance / 300000) * 1000; // Light speed in km/s
-            alert("Light will take: " + time + " milliseconds");
+            const distance = prompt("Enter distance in kilometers:");
+            const time = (distance / 300000) * 1000; // Light speed in km/s
+            showModal("Light will take: " + time + " milliseconds");
         }
+
         function showTelemetry() {
-            alert("System Telemetry: CPU Usage, Memory Consumption, etc.");
+            showModal("System Telemetry: CPU Usage, Memory Consumption, etc.");
         }
     </script>
 </body>
