@@ -1,4 +1,3 @@
-// Dataset for Page 1 (ROBO LAB) and Page 2 (SENSOR-LAB)
 const DATA = {
   page1: [
     {
@@ -39,9 +38,9 @@ const DATA = {
     {
       id: "p1-3",
       title: "FIRE FIGHTER ROBOT",
-      subtitle: "",
       colorClass: "color-yellow",
       hasUnderline: true,
+      enableTypewriter: true,
       specs: [
         "• This robot is a very incredible idea for emergency situations where no human interaction is needed and every thing is being controlled by a computer",
         "• If this project is made on a very huge scale using very advanced system then it can become a life saver for the victims as well as the fire fighters who put their lives on risk to neutralize a fire .",
@@ -77,6 +76,7 @@ const DATA = {
       title: "E-nose",
       subtitle: "This is a DIY project which can detect different kinds of smells and tell what is the source of it.",
       colorClass: "color-red",
+      enableTypewriter: true,
       specs: [
         "Components :",
         "• Esp 32",
@@ -147,11 +147,9 @@ const DATA = {
   ]
 };
 
-// Application State
 let currentPage = 1;
-const userUploadedImages = {};
+const userUploadedImages = JSON.parse(localStorage.getItem('robo_lab_images') || '{}');
 
-// Render Active Page
 function renderPage() {
   const container = document.getElementById("projects-container");
   const mainTitle = document.getElementById("main-title");
@@ -161,7 +159,6 @@ function renderPage() {
   const navBtn1 = document.getElementById("nav-btn-1");
   const navBtn2 = document.getElementById("nav-btn-2");
 
-  // Dynamic Header Title & Indicators
   if (currentPage === 1) {
     mainTitle.textContent = "ROBO LAB";
     pageIndicator.textContent = "PAGE 01";
@@ -178,12 +175,10 @@ function renderPage() {
     navBtn2.classList.add("active");
   }
 
-  // Clear previous cards
   container.innerHTML = "";
   const currentList = currentPage === 1 ? DATA.page1 : DATA.page2;
 
   currentList.forEach((item) => {
-    // 1. BONUS Section (Page 2)
     if (item.isBonus) {
       const bonusEl = document.createElement("section");
       bonusEl.className = "bonus-container";
@@ -199,9 +194,10 @@ function renderPage() {
       return;
     }
 
-    // 2. Standard Project Card
     const cardEl = document.createElement("section");
     cardEl.className = `project-card layout-${item.layout}`;
+
+    const rawFullText = item.specs.join("\n");
 
     const textContent = `
       <div class="card-text">
@@ -209,9 +205,11 @@ function renderPage() {
           ${item.hasUnderline ? `<span class="fighter-underline">${item.title}</span>` : item.title}
           ${item.subtitle ? `<span style="color:#00e5a3; font-weight:normal;"> : ${item.subtitle}</span>` : ""}
         </h3>
-        <div class="card-specs ${item.colorClass}">
-          ${item.specs.map(s => `<div class="spec-line">${s}</div>`).join("")}
-        </div>
+        ${
+          item.enableTypewriter
+            ? `<div class="card-specs ${item.colorClass} typewriter-target" data-full-text="${encodeURIComponent(rawFullText)}"></div>`
+            : `<div class="card-specs ${item.colorClass}">${item.specs.map(s => `<div class="spec-line">${s}</div>`).join("")}</div>`
+        }
       </div>
     `;
 
@@ -226,14 +224,12 @@ function renderPage() {
     container.appendChild(cardEl);
   });
 
-  // Attach File Upload Listeners
   attachUploadListeners();
+  setupScrollRevealAndTypewriter();
 }
 
-// Generate Image Slot HTML with Upload Support
 function createSlotHTML(id, slotText, altText, defaultImage) {
   const currentSrc = userUploadedImages[id] || defaultImage;
-
   return `
     <div class="card-image-slot" data-slot-id="${id}">
       <input type="file" id="input-${id}" accept="image/*" style="display:none;" />
@@ -249,7 +245,6 @@ function createSlotHTML(id, slotText, altText, defaultImage) {
   `;
 }
 
-// Upload Handling
 function attachUploadListeners() {
   document.querySelectorAll(".card-image-slot").forEach((slot) => {
     const slotId = slot.getAttribute("data-slot-id");
@@ -264,6 +259,9 @@ function attachUploadListeners() {
           const reader = new FileReader();
           reader.onload = (evt) => {
             userUploadedImages[slotId] = evt.target.result;
+            try {
+              localStorage.setItem('robo_lab_images', JSON.stringify(userUploadedImages));
+            } catch(e) {}
             renderPage();
           };
           reader.readAsDataURL(file);
@@ -273,7 +271,40 @@ function attachUploadListeners() {
   });
 }
 
-// Page Navigation
+// Scroll-Reveal and Typewriter Observer
+function setupScrollRevealAndTypewriter() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+
+        // Check if there is a typewriter target inside
+        const typewriterEl = entry.target.querySelector(".typewriter-target");
+        if (typewriterEl && !typewriterEl.dataset.typed) {
+          typewriterEl.dataset.typed = "true";
+          const fullText = decodeURIComponent(typewriterEl.dataset.fullText || "");
+          let i = 0;
+          typewriterEl.innerHTML = `<span class="typewriter-cursor"></span>`;
+
+          const timer = setInterval(() => {
+            i++;
+            const currentSub = fullText.slice(0, i).replace(/\n/g, "<br/>");
+            typewriterEl.innerHTML = `${currentSub}<span class="typewriter-cursor"></span>`;
+            if (i >= fullText.length) {
+              clearInterval(timer);
+              // Leave cursor blinking
+            }
+          }, 10);
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".project-card, .bonus-container").forEach((card) => {
+    observer.observe(card);
+  });
+}
+
 function switchPage(pageNumber) {
   currentPage = pageNumber;
   renderPage();
@@ -284,7 +315,6 @@ function toggleNextPage() {
   switchPage(currentPage === 1 ? 2 : 1);
 }
 
-// Initialize on Load
 document.addEventListener("DOMContentLoaded", () => {
   renderPage();
 });
