@@ -1,239 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS // Tool Deck</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #00f0ff;
-            --secondary-color: #ff2bd6;
-            --background-color: #121212;
-            --card-background: rgba(255, 255, 255, 0.1);
-            --text-color: #ffffff;
-            --border-radius: 15px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
-
-        .tool {
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin: 15px;
-            width: 250px;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            animation: slideIn 0.5s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .tool:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 240, 255, 0.7);
-        }
-
-        button {
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background: darkviolet;
-            transform: scale(1.05);
-        }
-
-        footer {
-            margin-top: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .close {
-            cursor: pointer;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROBO LAB & SENSOR-LAB Portfolio</title>
+  
+  <!-- Google Fonts: Jockey One & Josefin Slab -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jockey+One&family=Josefin+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <header>
-        <h1>NEXUS: High-Tech Tool Deck</h1>
-        <p>Explore a suite of powerful tools designed for engineers and researchers.</p>
-    </header>
+<body class="bg-black text-slate-200">
 
-    <div class="tool">
-        <h2>Mission Clock</h2>
-        <button onclick="showMissionClock()">Open</button>
-    </div>
-    <div class="tool">
-        <h2>Password Generator</h2>
-        <button onclick="generatePassword()">Generate</button>
-    </div>
-    <div class="tool">
-        <h2>JSON Formatter</h2>
-        <button onclick="formatJSON()">Format</button>
-    </div>
-    <div class="tool">
-        <h2>Base64 Codec</h2>
-        <button onclick="base64Codec()">Codec</button>
-    </div>
-    <div class="tool">
-        <h2>SHA-256 Hasher</h2>
-        <button onclick="hashSHA256()">Hash</button>
-    </div>
-    <div class="tool">
-        <h2>Light-Delay Calculator</h2>
-        <button onclick="calculateLightDelay()">Calculate</button>
-    </div>
-    <div class="tool">
-        <h2>System Telemetry</h2>
-        <button onclick="showTelemetry()">Show</button>
-    </div>
-
-    <footer>
-        &copy; 2023 NEXUS Tools. All Rights Reserved.
-    </footer>
-
-    <!-- Modal for displaying results -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modal-text"></div>
+  <!-- Header -->
+  <header class="header-container">
+    <div class="header-row">
+      <div class="header-left">
+        <div class="header-badge-row">
+          <div class="hazard-stripes hazard-bar"></div>
+          <div class="hazard-line"></div>
+          <span id="page-indicator" class="page-indicator">PAGE 01</span>
         </div>
+
+        <!-- Dynamic Title: ROBO LAB / SENSOR-LAB in straight line -->
+        <div class="title-wrapper">
+          <div class="corner-bracket"></div>
+          <h1 id="main-title" class="font-jockey lab-title">ROBO LAB</h1>
+        </div>
+
+        <div class="under-title-row">
+          <div class="hazard-stripes hazard-bar-sm"></div>
+          <div class="circuit-line">
+            <div class="circuit-trace"></div>
+            <div class="circuit-tick"></div>
+            <div class="circuit-trace-faded"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Header Controls -->
+      <div class="header-right">
+        <!-- Mechanical Industrial Gear -->
+        <div class="gear-container">
+          <svg class="gear-svg" viewBox="0 0 100 100" fill="none">
+            <path d="M50 20 A30 30 0 0 1 71.21 28.79 L77.5 22.5 L84 29 L77.71 35.29 A30 30 0 0 1 80 50 L89 50 L89 59 L80 59 A30 30 0 0 1 71.21 71.21 L77.5 77.5 L71 84 L64.71 77.71 A30 30 0 0 1 50 80 L50 89 L41 89 L41 80 A30 30 0 0 1 28.79 71.21 L22.5 77.5 L16 71 L22.29 64.71 A30 30 0 0 1 20 50 L11 50 L11 41 L20 41 A30 30 0 0 1 28.79 28.79 L22.5 22.5 L29 16 L35.29 22.29 A30 30 0 0 1 50 20 Z" stroke="#f59e0b" stroke-width="3" fill="none" />
+            <circle cx="50" cy="50" r="14" stroke="#f59e0b" stroke-width="3" fill="none" />
+            <circle cx="50" cy="50" r="5" fill="#f59e0b" />
+          </svg>
+        </div>
+
+        <!-- Quick Switcher -->
+        <div class="page-switcher">
+          <button id="nav-btn-1" class="page-btn active" onclick="switchPage(1)">Page 1</button>
+          <span class="switcher-slash">/</span>
+          <button id="nav-btn-2" class="page-btn" onclick="switchPage(2)">Page 2</button>
+        </div>
+      </div>
     </div>
+    <div class="header-divider"></div>
+  </header>
 
-    <script>
-        function showModal(text) {
-            document.getElementById('modal-text').innerText = text;
-            document.getElementById('modal').style.display = 'flex';
-        }
+  <!-- Main Projects List Container -->
+  <main id="projects-container" class="projects-container"></main>
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
+  <!-- Footer Navigation -->
+  <footer class="footer-container">
+    <div class="footer-inner">
+      <div class="footer-actions">
+        <button class="top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          ▲ TOP OF PAGE
+        </button>
 
-        function showMissionClock() {
-            showModal("Mission Clock is activated!");
-        }
+        <button id="main-page-toggle" class="main-toggle-btn" onclick="toggleNextPage()">
+          <span id="main-page-toggle-text">PROCEED TO PAGE 2</span> ➔
+        </button>
 
-        function generatePassword() {
-            const password = Math.random().toString(36).slice(-8);
-            showModal("Password generated: " + password);
-        }
+        <div id="footer-page-badge" class="footer-badge">PAGE [01 / 02]</div>
+      </div>
 
-        function formatJSON() {
-            const json = prompt("Enter JSON to format:");
-            try {
-                const formatted = JSON.stringify(JSON.parse(json), null, 2);
-                showModal(formatted);
-            } catch (e) {
-                showModal("Invalid JSON!");
-            }
-        }
+      <div class="bottom-hazard-wrap">
+        <div class="bottom-line-tech">
+          <div class="tech-line-yellow"></div>
+          <div class="tech-bracket-notch"></div>
+          <div class="tech-line-short"></div>
+        </div>
+        <div class="bottom-stripes-row">
+          <div class="hazard-stripes bottom-stripe-1"></div>
+          <div class="bottom-spacer-line"></div>
+          <div class="hazard-stripes bottom-stripe-2"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        function base64Codec() {
-            const text = prompt("Enter text to encode/decode:");
-            const encoded = btoa(text);
-            const decoded = atob(encoded);
-            showModal(`Encoded: ${encoded}\nDecoded: ${decoded}`);
-        }
-
-        async function hashSHA256() {
-            const text = prompt("Enter text to hash:");
-            const hashed = await sha256(text);
-            showModal("Hashed: " + hashed);
-        }
-
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
-        }
-
-        function calculateLightDelay() {
-            const distance = prompt("Enter distance in kilometers:");
-            const time = (distance / 300000) * 1000; // Light speed in km/s
-            showModal("Light will take: " + time + " milliseconds");
-        }
-
-        function showTelemetry() {
-            showModal("System Telemetry: CPU Usage, Memory Consumption, etc.");
-        }
-    </script>
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
 </body>
 </html>
