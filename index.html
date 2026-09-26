@@ -1,137 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smasher World</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS // Tool Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --c: #00f0ff;
+            --m: #ff2bd6;
+            --bg: #05070d;
+            --g: rgba(255, 255, 255, .05);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+        body {
+            background: var(--bg);
+            color: #cfe9ff;
+            font-family: 'JetBrains Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--c);
+        }
+        .tool {
+            background: var(--g);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .tool:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--c);
+        }
+        button {
+            background: var(--m);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: darkviolet;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>NEXUS: High-Tech Tool Deck</h1>
+        <p>Explore a suite of powerful tools designed for engineers and researchers.</p>
+    </header>
+    <div class="tool">
+        <h2>Mission Clock</h2>
+        <button onclick="showMissionClock()">Open</button>
+    </div>
+    <div class="tool">
+        <h2>Password Generator</h2>
+        <button onclick="generatePassword()">Generate</button>
+    </div>
+    <div class="tool">
+        <h2>JSON Formatter</h2>
+        <button onclick="formatJSON()">Format</button>
+    </div>
+    <div class="tool">
+        <h2>Base64 Codec</h2>
+        <button onclick="base64Codec()">Codec</button>
+    </div>
+    <div class="tool">
+        <h2>SHA-256 Hasher</h2>
+        <button onclick="hashSHA256()">Hash</button>
+    </div>
+    <div class="tool">
+        <h2>Light-Delay Calculator</h2>
+        <button onclick="calculateLightDelay()">Calculate</button>
+    </div>
+    <div class="tool">
+        <h2>System Telemetry</h2>
+        <button onclick="showTelemetry()">Show</button>
+    </div>
 
-  <div class="container">
-    <main class="portfolio-grid">
-
-      <!-- ================= LEFT COLUMN ================= -->
-      <section class="left-column">
-        
-        <!-- Header Badge: SMASHER WORLD -->
-        <div class="card-smasher-world brutal-shadow">
-          <h1>SMASHER WORLD</h1>
-        </div>
-
-        <!-- Profile Photo -->
-        <div class="card-avatar brutal-shadow">
-          <img 
-            id="avatar" 
-            src="avatar.jpeg" 
-            alt="Smasher Guy Avatar"
-          />
-        </div>
-
-        <!-- Pill Tag: SMASHER_GUY -->
-        <div class="badge-smasher-guy brutal-shadow-pill">
-          <span>SMASHER_GUY</span>
-        </div>
-
-        <!-- Personal Info Card -->
-        <div class="card-info brutal-shadow">
-          
-          <div class="info-row">
-            <span class="info-label">AGE</span>
-            <div class="arrow-line"><span>───────────&gt;</span></div>
-            <span class="info-value">15</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">REAL NAME</span>
-            <div class="arrow-line"><span>───────&gt;</span></div>
-            <span class="info-value">NA</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">OCCUPATION</span>
-            <div class="arrow-line"><span>────&gt;</span></div>
-            <span class="info-value">STUDENT</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">HOBBIES</span>
-            <div class="arrow-line"><span>────────&gt;</span></div>
-            <span class="info-value">CODING,</span>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= RIGHT COLUMN ================= -->
-      <section class="right-column">
-
-        <!-- 4 Tilted Floating Polaroid Photos -->
-        <div class="floating-photo pos-top-left brutal-shadow-sm">
-          <img src="photo1.jpeg" alt="Arduino car component">
-        </div>
-
-        <div class="floating-photo pos-mid-left brutal-shadow-sm">
-          <img src="photo2.jpeg" alt="Red blue RC car">
-        </div>
-
-        <div class="floating-photo pos-top-right brutal-shadow-sm">
-          <img src="photo3.jpeg" alt="Black obstacle car">
-        </div>
-
-        <div class="floating-photo pos-mid-right brutal-shadow-sm">
-          <img src="photo4.jpeg" alt="Robotics component">
-        </div>
-
-        <!-- Projects Box -->
-        <div class="card-projects brutal-shadow-lg">
-          
-          <h2 class="projects-title">PROJECTS I HAVE<br>WORKED ON TILL NOW</h2>
-
-          <p class="project-text">
-            ROBOTS- Obstacle Avoidance Car with ultrasonic sensors and having both manual and automatic modes all controlled through esp 32 and arduino UNO ,can be controlled via wifi.
-          </p>
-
-          <!-- Main Robot Image -->
-          <div class="robot-image-box brutal-shadow-sm">
-            <img 
-              src="main-robot.png" 
-              alt="Obstacle Avoidance Robot Car"
-            />
-          </div>
-
-          <!-- Red Bidirectional Arrow Divider -->
-          <div class="red-arrow-divider">
-            <span>&lt;</span>
-            <div class="arrow-line-fill"></div>
-            <span>&gt;</span>
-          </div>
-
-          <!-- AI Projects -->
-          <div class="ai-projects-list project-text">
-            <p>
-              <strong>AI= Praj</strong> ,an ai which runs in the background of your system and does whatever you say or type in its terminal and stays limited to your system only keeping the data safe.
-            </p>
-            <p>
-              <strong>AI= Aether</strong> , an ai which can evolve itself and which is connected with autonomous learning workflows, local model execution, and hardware controls.
-            </p>
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer-note">
-      SMASHER WORLD • PORTFOLIO • ROBOTICS &amp; AI
-    </footer>
-  </div>
-
+    <script>
+        function showMissionClock() {
+            alert("Mission Clock is activated!");
+        }
+        function generatePassword() {
+            alert("Password generated: " + Math.random().toString(36).slice(-8));
+        }
+        function formatJSON() {
+            let json = prompt("Enter JSON to format:");
+            try {
+                let formatted = JSON.stringify(JSON.parse(json), null, 2);
+                alert(formatted);
+            } catch (e) {
+                alert("Invalid JSON!");
+            }
+        }
+        function base64Codec() {
+            let text = prompt("Enter text to encode/decode:");
+            let encoded = btoa(text);
+            let decoded = atob(encoded);
+            alert(`Encoded: ${encoded}\nDecoded: ${decoded}`);
+        }
+        function hashSHA256() {
+            let text = prompt("Enter text to hash:");
+            alert("Hashed: " + sha256(text));
+        }
+        // Simple SHA-256 hashing function
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+        }
+        function calculateLightDelay() {
+            let distance = prompt("Enter distance in kilometers:");
+            let time = (distance / 300000) * 1000; // Light speed in km/s
+            alert("Light will take: " + time + " milliseconds");
+        }
+        function showTelemetry() {
+            alert("System Telemetry: CPU Usage, Memory Consumption, etc.");
+        }
+    </script>
 </body>
 </html>
