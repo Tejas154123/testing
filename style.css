@@ -201,7 +201,7 @@ body {
   background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.4), transparent);
 }
 
-/* Projects Layout & Scroll Animations */
+/* Projects Layout */
 .projects-container {
   width: 100%;
   max-width: 1150px;
@@ -210,13 +210,13 @@ body {
 }
 
 .project-card {
-  margin: 40px 0;
+  margin: 48px 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 28px;
+  gap: 36px;
   align-items: center;
   opacity: 0;
-  transform: translateY(35px);
+  transform: translateY(30px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -232,7 +232,7 @@ body {
   .layout-image-left {
     grid-template-columns: 5fr 7fr;
   }
-  .layout-image-left .card-text {
+  .layout-image-left .flowing-border-wrapper {
     order: 2;
   }
   .layout-image-left .card-image-slot {
@@ -243,15 +243,56 @@ body {
     flex-direction: column;
     align-items: center;
   }
+  .layout-image-top-centered .flowing-border-wrapper {
+    max-width: 780px;
+  }
+}
+
+/* Flowing Border Container & Animated SVG Connecting Lines */
+.flowing-border-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.flowing-svg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 25;
+}
+
+@media (max-width: 899px) {
+  .flowing-svg {
+    display: none;
+  }
+}
+
+/* Continuous Electric Laser Flow Animation */
+@keyframes flowDash {
+  0% {
+    stroke-dashoffset: 48;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.flowing-line {
+  stroke-dasharray: 8 5;
+  animation: flowDash 1.2s linear infinite !important;
 }
 
 .card-text {
   background-color: #0a0a0a;
   border: 1px solid #27272a;
-  padding: 24px 28px;
+  padding: 26px 30px;
   border-radius: 2px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.85);
   position: relative;
+  z-index: 10;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -287,17 +328,6 @@ body {
   display: inline-block;
 }
 
-/* Electric Flowing Line Animation */
-@keyframes flowDash {
-  0% { stroke-dashoffset: 48; }
-  100% { stroke-dashoffset: 0; }
-}
-
-.flowing-line {
-  stroke-dasharray: 8 4;
-  animation: flowDash 1.2s linear infinite;
-}
-
 /* Image Slot */
 .card-image-slot {
   width: 100%;
@@ -310,7 +340,6 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
   border-radius: 2px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -328,14 +357,6 @@ body {
   letter-spacing: 0.05em;
   text-align: center;
   white-space: pre-line;
-}
-
-.slot-upload-hint {
-  margin-top: 8px;
-  font-size: 11px;
-  color: #4b5563;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .slot-image-preview {
@@ -371,7 +392,7 @@ body {
   width: 100%;
   margin: 40px auto;
   opacity: 0;
-  transform: translateY(35px);
+  transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
